@@ -11,7 +11,7 @@
                 </div>
                 <div>
                   <button
-                     onClick={() => EditTodos()} >
+                     onClick={() => EditTodos(currentInput)} >
                     Edit
                   </button>  
                   <button 
