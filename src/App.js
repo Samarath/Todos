@@ -59,20 +59,24 @@ function App() {
       if(workList[i].innerHTML === value){
          const getForEdit = workList[i];
          let editedTodos = prompt("Edit your todos");
-         getForEdit.textContent = editedTodos;
-         console.log(getForEdit.textContent)
+         console.log(editedTodos)
+         if(editedTodos !== ''){
+          getForEdit.textContent = editedTodos;
+                  console.log(getForEdit.textContent)
 
-         const delItem = workList[i].parentElement.classList[1].replace('}', '');
-         console.log(delItem);
-         const mapped = storeInput.map((item, i) => {
-           if(i === Number(delItem)){
-            return editedTodos;
-           }else{
-            return item;
-           }
-         });
-         console.log(mapped);
-         setStoreInput([...mapped]);
+                  const delItem = workList[i].parentElement.classList[1].replace('}', '');
+                  console.log(delItem);
+                  const mapped = storeInput.map((item, i) => {
+                    if(i === Number(delItem)){
+                      return editedTodos;
+                    }else{
+                      return item;
+                    }
+                  });
+                  //  console.log(mapped);
+                  setStoreInput([...mapped]);
+         }
+         
          
       }
     }
