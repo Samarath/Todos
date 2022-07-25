@@ -1,25 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './App.css';
 import Todos from './Component/Todos/Todos';
+import { storeInputs, removeItems, chekingDelete } from './Action/index';
 
 
 function App() {
 
-  const [storeInput, setStoreInput] = useState([]);
-  const [removeItem, setRemoveItem] = useState('');
-  const [checkingDel, setCheckingDel] = useState([]);
+  const storingInputs = useSelector((state) => state.storeTheInputs);
+  const removingItems = useSelector((state) => state.removeTheItems);
+  const checkDelete = useSelector((state) => state.checkingTheDelete)
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
       vanishItem();
-  }, [checkingDel]);
+  }, [checkDelete]);
 
    const inputs = (e) => {
       const getInput = document.getElementById('input').value;
 
       if(getInput !== ''){
-        setStoreInput([...storeInput, getInput]); 
-      }
+        dispatch(storeInputs([...storingInputs, getInput]));
     
+      }
+
       //cleaning input after add button is clicked
       const cleanInput = document.getElementById('input');
       cleanInput.value = ''
@@ -28,14 +33,16 @@ function App() {
    const getItem = (value) => {
     
      const workList = document.getElementsByClassName('itemList');
-    //  console.log(value, 'inside get item')
      for (let i = 0; i < workList.length; i++) {
 
       if(workList[i].innerHTML === value){
          const delItem = workList[i].parentElement.classList[1].replace('}', '');
-         setRemoveItem(Number(delItem)); 
-         setCheckingDel([...checkingDel, delItem])
-         console.log(delItem, 'inside get')
+
+         dispatch(removeItems(Number(delItem)));
+
+        //  setCheckingDel([...checkingDel, delItem]);
+         dispatch(chekingDelete([...checkDelete, delItem]));
+        //  console.log(checkDelete, checkingDel)
       }
     }
 
@@ -43,13 +50,13 @@ function App() {
    } 
 
    const vanishItem = () =>{
-     const store = [...storeInput];
+     const store = [...storingInputs];
      const fil = store.filter((item, i) => {
-      if(i !== removeItem) {
+      if(i !== removingItems) {
         return item;
       }
      })
-     setStoreInput(fil);
+     dispatch(storeInputs(fil));
    }
 
    const EditTodos = (value) => {
@@ -66,22 +73,19 @@ function App() {
 
                   const delItem = workList[i].parentElement.classList[1].replace('}', '');
                   console.log(delItem);
-                  const mapped = storeInput.map((item, i) => {
+                  const mapped = storingInputs.map((item, i) => {
                     if(i === Number(delItem)){
                       return editedTodos;
                     }else{
                       return item;
                     }
                   });
-                  //  console.log(mapped);
-                  setStoreInput([...mapped]);
+                  dispatch(storeInputs([...mapped]));
          }
          
          
       }
     }
-    // const delItem = workList[i].parentElement.classList[1].replace('}', '');
-    // console.log(delItem)
    }
 
   return (
@@ -95,7 +99,7 @@ function App() {
         <button onClick={() => inputs()} className='button glow-button'>Add</button>
       </div>
       
-          {storeInput.map((item, i) => {
+          {storingInputs.map((item, i) => {
           
           return (
               
