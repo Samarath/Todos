@@ -1,0 +1,19 @@
+#Register{
+    width: 100%;
+    min-width: 100px;
+    padding: 5px 10px;
+    color: white;
+    background-color: teal;
+    border: none;
+    cursor: pointer;
+}
+
+#name{
+    min-width: 100px;
+    margin: 10px 0 10px 0;
+    padding: 5px;
+    font-size: 1.1rem;
+    background-color: #1d1f20;
+    color: white;
+    border: none;   
+}

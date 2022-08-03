@@ -2,14 +2,19 @@ import { useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './App.css';
 import Todos from './Component/Todos/Todos';
-import { storeInputs, removeItems, chekingDelete } from './Action/index';
+import { storeInputs, removeItems, chekingDelete} from './Action/index';
+import LogIn from './Component/LogIn/login';
+import Navbar from './Component/NavBar/Navbar';
+import Register from './Component/Register/Register';
 
 
 function App() {
 
   const storingInputs = useSelector((state) => state.storeTheInputs);
   const removingItems = useSelector((state) => state.removeTheItems);
-  const checkDelete = useSelector((state) => state.checkingTheDelete)
+  const checkDelete = useSelector((state) => state.checkingTheDelete);
+  const userLogin = useSelector((state) => state.userLogin);
+  const showLoginOrRegister = useSelector((state) => state.loginOrRegister)
   const dispatch = useDispatch();
 
 
@@ -88,36 +93,54 @@ function App() {
     }
    }
 
-  return (
-    <div className="App">
-      <div className='heading'>
-        <h1>Todo List</h1>
-        <p>MAKING LIFE BETTER</p>
-      </div>
-      <div>
-        <input type='text' name='text' id='input'/>
-        <button onClick={() => inputs()} className='button glow-button'>Add</button>
-      </div>
-      
-          {storingInputs.map((item, i) => {
-          
-          return (
-              
-             <Todos 
-                currentInput={item}
-                key={i} 
-                getItem={getItem}
-                selector={i}
-                EditTodos={EditTodos}
-              />
-          
-          );
-        })}
+   const showData = () => {
+     if(userLogin){
 
-      
-      
-    </div>
+     return (<div className="App">
+        <div className='heading'>
+          <h1>Todo List</h1>
+          <p>MAKING LIFE BETTER</p>
+        </div>
+        <div>
+          <input type='text' name='text' id='input' className='addtodo'/>
+          <button onClick={() => inputs()} className='button glow-button'>Add</button>
+        </div>
+        
+            {storingInputs.map((item, i) => {
+            
+            return (
+                
+              <Todos 
+                  currentInput={item}
+                  key={i} 
+                  getItem={getItem}
+                  selector={i}
+                  EditTodos={EditTodos}
+                />
+            
+            );
+          })}
+      </div>)
+     }
+   }
+
+   const showLinks = () => {
+    if(showLoginOrRegister === 'login'){
+        return <LogIn />
+    }else if(showLoginOrRegister === 'register'){
+        return  <Register />
+    }else if(showLoginOrRegister === ''){ 
+      return showData();
+    }
+   }
+
+  return (
+    <>
+      <Navbar loginValue={userLogin}/>
+      {showLinks()}
+    </>
   );
+  
 }
 
 export default App;

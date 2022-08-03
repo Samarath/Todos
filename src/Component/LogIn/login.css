@@ -1,0 +1,28 @@
+.forms{
+    margin: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#email, #password{
+    min-width: 100px;
+    margin: 10px 0 10px 0;
+    padding: 5px;
+    font-size: 1.1rem;
+    background-color: #1d1f20;
+    color: white;
+    border: none;   
+}
+
+#submit{
+    width: 100%;
+    min-width: 100px;
+    padding: 5px 10px;
+    color: white;
+    background-color: teal;
+    border: none;
+    cursor: pointer;
+}
+

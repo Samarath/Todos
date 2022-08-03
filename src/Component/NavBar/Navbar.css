@@ -1,0 +1,11 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.navbar span{
+    margin: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
