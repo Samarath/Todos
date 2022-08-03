@@ -1,14 +1,24 @@
 import './Register.css';
+import { isLogin, login } from '../../Action';
+import {useDispatch } from 'react-redux';
 
 const Register = () => {
 
+  const dispatch = useDispatch();
+
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value
+    const name = e.target[0].value
+    const email = e.target[1].value;
+    const password = e.target[2].value
 
+    // console.log(name, email, password)
+    dispatch(isLogin(true));
+    dispatch(login(''));
     e.target[0].value = '';
     e.target[1].value = '';
+    e.target[2].value = '';
   }
 
     return(
